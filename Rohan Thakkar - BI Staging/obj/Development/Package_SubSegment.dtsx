@@ -1,0 +1,609 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/2/2016 1:07:24 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ROHAN"
+  DTS:CreatorName="ROHAN\rohan27"
+  DTS:DTSID="{B0ABE10A-6B44-48AD-A4C2-DBF5187EE917}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.900.80"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package_SubSegment"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{28C53BB1-07BF-401A-890C-C6B4B3A88B3A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Stage SubSegment"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{A28401DB-19DC-41D2-BCB4-3B43DD6AA2A9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Stage SubSegment"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Stage SubSegment\Source SubSegment"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Source SubSegment"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[SubSegment]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage SubSegment\Source SubSegment.Connections[OleDbConnection]"
+                  connectionManagerID="{62F5AB2D-B7DA-4E89-92C9-F5122624FA56}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[smith-bi1.ischool.uw.edu.SourceSystem]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[SubSegmentID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[SubSegmentID]"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[SubSegmentID]"
+                      name="SubSegmentID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[SegmentID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[SegmentID]"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[SegmentID]"
+                      name="SegmentID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[SubSegment]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[SubSegment]"
+                      length="50"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[SubSegment]"
+                      name="SubSegment"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[CreatedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[CreatedDate]"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[CreatedDate]"
+                      name="CreatedDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[CreatedBy]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[CreatedBy]"
+                      length="255"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[CreatedBy]"
+                      name="CreatedBy"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[ModifiedBy]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[ModifiedBy]"
+                      length="255"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[ModifiedBy]"
+                      name="ModifiedBy"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[SubSegmentID]"
+                      dataType="i4"
+                      name="SubSegmentID" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[SegmentID]"
+                      dataType="i4"
+                      name="SegmentID" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[SubSegment]"
+                      dataType="wstr"
+                      length="50"
+                      name="SubSegment" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[CreatedDate]"
+                      dataType="dbTimeStamp"
+                      name="CreatedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[CreatedBy]"
+                      dataType="wstr"
+                      length="255"
+                      name="CreatedBy" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].ExternalColumns[ModifiedBy]"
+                      dataType="wstr"
+                      length="255"
+                      name="ModifiedBy" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[SubSegmentID]"
+                      dataType="i4"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[SubSegmentID]"
+                      name="SubSegmentID" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[SegmentID]"
+                      dataType="i4"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[SegmentID]"
+                      name="SegmentID" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[SubSegment]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[SubSegment]"
+                      name="SubSegment" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[CreatedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[CreatedDate]"
+                      name="CreatedDate" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[CreatedBy]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[CreatedBy]"
+                      name="CreatedBy" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[ModifiedDate]"
+                      name="ModifiedDate" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[ModifiedBy]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[ModifiedBy]"
+                      name="ModifiedBy" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Stage SubSegment\Stage SubSegment"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Stage SubSegment"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[StageSubSegment]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage SubSegment\Stage SubSegment.Connections[OleDbConnection]"
+                  connectionManagerID="{9DBC86AC-DD29-495C-AD90-D743F3197AD5}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[smith-bi1.ischool.uw.edu.rohan27DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].Columns[SubSegmentID]"
+                      cachedDataType="i4"
+                      cachedName="SubSegmentID"
+                      externalMetadataColumnId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[SubSegmentID]"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[SubSegmentID]" />
+                    <inputColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].Columns[SegmentID]"
+                      cachedDataType="i4"
+                      cachedName="SegmentID"
+                      externalMetadataColumnId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[SegmentID]"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[SegmentID]" />
+                    <inputColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].Columns[SubSegment]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="SubSegment"
+                      externalMetadataColumnId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[SubSegment]"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[SubSegment]" />
+                    <inputColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].Columns[CreatedDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="CreatedDate"
+                      externalMetadataColumnId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[CreatedDate]"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[CreatedDate]" />
+                    <inputColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].Columns[CreatedBy]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CreatedBy"
+                      externalMetadataColumnId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[CreatedBy]"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[CreatedBy]" />
+                    <inputColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].Columns[ModifiedDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ModifiedDate"
+                      externalMetadataColumnId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[ModifiedDate]" />
+                    <inputColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].Columns[ModifiedBy]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ModifiedBy"
+                      externalMetadataColumnId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[ModifiedBy]"
+                      lineageId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output].Columns[ModifiedBy]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[SubSegmentID]"
+                      dataType="i4"
+                      name="SubSegmentID" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[SegmentID]"
+                      dataType="i4"
+                      name="SegmentID" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[SubSegment]"
+                      dataType="wstr"
+                      length="50"
+                      name="SubSegment" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[CreatedDate]"
+                      dataType="dbTimeStamp"
+                      name="CreatedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[CreatedBy]"
+                      dataType="wstr"
+                      length="255"
+                      name="CreatedBy" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input].ExternalColumns[ModifiedBy]"
+                      dataType="wstr"
+                      length="255"
+                      name="ModifiedBy" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Stage SubSegment\Stage SubSegment.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage SubSegment\Stage SubSegment.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage SubSegment\Stage SubSegment.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage SubSegment\Stage SubSegment.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Stage SubSegment.Paths[OLE DB Source Output]"
+              endId="Package\Stage SubSegment\Stage SubSegment.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Stage SubSegment\Source SubSegment.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate SubSegment"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{361478EB-0557-4A47-9B1D-CBA1AE578963}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate SubSegment"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9DBC86AC-DD29-495C-AD90-D743F3197AD5}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.StageSubSegment" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{03A6D515-9DC2-4C46-A8B5-747EDEA3DAB2}"
+      DTS:From="Package\Truncate SubSegment"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Stage SubSegment" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="182,42"
+          Id="Package\Truncate SubSegment"
+          TopLeft="123.249998143564,52.8333323647579" />
+        <NodeLayout
+          Size="167.333333333334,42"
+          Id="Package\Stage SubSegment"
+          TopLeft="238.666663090388,173.733330202897" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="214.249998143564,94.8333323647579">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="108.083331613491,78.8999978381396"
+              Start="0,0"
+              End="108.083331613491,71.3999978381396">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.4499989190698" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.4499989190698"
+                    Point2="0,39.4499989190698"
+                    Point3="4,39.4499989190698" />
+                  <mssgle:LineSegment
+                    End="104.083331613491,39.4499989190698" />
+                  <mssgle:CubicBezierSegment
+                    Point1="104.083331613491,39.4499989190698"
+                    Point2="108.083331613491,39.4499989190698"
+                    Point3="108.083331613491,43.4499989190698" />
+                  <mssgle:LineSegment
+                    End="108.083331613491,71.3999978381396" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Stage SubSegment">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="172.666666666667,42"
+          Id="Package\Stage SubSegment\Source SubSegment"
+          TopLeft="84.9166653814415,63.6666655043761" />
+        <NodeLayout
+          Size="167.333333333334,42"
+          Id="Package\Stage SubSegment\Stage SubSegment"
+          TopLeft="199.083330346892,168.966663621465" />
+        <EdgeLayout
+          Id="Package\Stage SubSegment.Paths[OLE DB Source Output]"
+          TopLeft="171.249998714775,105.666665504376">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="111.499998298784,63.2999981170893"
+              Start="0,0"
+              End="111.499998298784,55.7999981170893">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.6499990585447" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.6499990585447"
+                    Point2="0,31.6499990585447"
+                    Point3="4,31.6499990585447" />
+                  <mssgle:LineSegment
+                    End="107.499998298784,31.6499990585447" />
+                  <mssgle:CubicBezierSegment
+                    Point1="107.499998298784,31.6499990585447"
+                    Point2="111.499998298784,31.6499990585447"
+                    Point3="111.499998298784,35.6499990585447" />
+                  <mssgle:LineSegment
+                    End="111.499998298784,55.7999981170893" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage SubSegment\Source SubSegment">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage SubSegment\Stage SubSegment">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

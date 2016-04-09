@@ -1,0 +1,411 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/23/2016 1:50:04 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ROHAN"
+  DTS:CreatorName="ROHAN\rohan27"
+  DTS:DTSID="{2BEE4CB5-EBEC-4980-AA3D-8A408ADC4DB5}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.900.80"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package-Fact"
+  DTS:PackageType="5"
+  DTS:VersionBuild="45"
+  DTS:VersionGUID="{0EDE0B39-932E-4363-B844-2C28918D8BFD}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Add FK to FactSalesActual"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{35f6336a-307b-454d-b86e-ecd3fcec792a}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Add FK to FactSalesActual"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016 CTP3.2; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9DBC86AC-DD29-495C-AD90-D743F3197AD5}"
+          SQLTask:SqlStatementSource="ALTER TABLE dbo.FactSalesActual ADD CONSTRAINT FK_FactSalesActual_dimProduct FOREIGN KEY (dimProductKey) REFERENCES dbo.dimProduct(dimProductKey); &#xA;ALTER TABLE dbo.FactSalesActual ADD CONSTRAINT FK_FactSalesActual_dimStore FOREIGN KEY (dimStoreKey) REFERENCES dbo.dimStore_new(dimStoreKey); &#xA;ALTER TABLE dbo.FactSalesActual ADD CONSTRAINT FK_FactSalesActual_dimReseller FOREIGN KEY (dimResellerKey) REFERENCES dbo.dimReseller_new(dimResellerKey); &#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Add FK to FactSalesTarget"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7f18505d-69a7-4116-8323-30cb336ed22a}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Add FK to FactSalesTarget"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016 CTP3.2; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9DBC86AC-DD29-495C-AD90-D743F3197AD5}"
+          SQLTask:SqlStatementSource="ALTER TABLE dbo.FactSalesTarget ADD CONSTRAINT FK_FactSales_dimStore FOREIGN KEY (dimStoreKey) REFERENCES dbo.dimStore_new (dimStoreKey);&#xA;ALTER TABLE dbo.FactSalesTarget ADD CONSTRAINT FK_FactSales_dimReseller FOREIGN KEY (dimResellerKey) REFERENCES dbo.dimReseller_new (dimResellerKey);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Enter Random to FactSalesActual"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{0634AF94-0B5C-4B7E-855E-7CD44FA873B1}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Enter Random to FactSalesActual"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016 CTP3.2; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9DBC86AC-DD29-495C-AD90-D743F3197AD5}"
+          SQLTask:SqlStatementSource="Insert into dbo.FactSalesActual&#xA;(&#xA;    [dimProductKey]&#xA;      ,[dimStoreKey]&#xA;      ,[dimResellerKey]&#xA;      ,[dimChannelKey]&#xA;      ,[dimSaleDateKey]&#xA;      ,[SaleAmount]&#xA;      ,[SaleQuantity]&#xA;      ,[SalePrice]&#xA;      ,[SaleCost]&#xA;      ,[SaleProfit]&#xA;      ,[ResellerName]&#xA;      ,[Email]&#xA;)&#xA;Select DP.dimProductKey,&#xA;case when DS.dimStoreKey is null then -1 else DS.dimStoreKey end as dimStoreKey,&#xA;case when DR.dimResellerKey is null then -1 else DR.dimResellerKey end as dimResellerKey,&#xA;DC.dimChannelKey,&#xA;DD.DimDateID,&#xA;case when SH.ResellerID is null then DP.ProductRetailPrice*SD.SalesQuantity else DP.ProductWholeSalePrice*SD.SalesQuantity end as SaleAmount,&#xA;SD.SalesQuantity,&#xA;case when SH.ResellerID is null then DP.ProductRetailPrice else DP.ProductWholeSalePrice end as SalePrice,&#xA;DP.ProductCost*SD.SalesQuantity as CostAmount,&#xA;(case when SH.ResellerID is null then DP.ProductRetailPrice*SD.SalesQuantity else DP.ProductWholeSalePrice*SD.SalesQuantity end) - (DP.ProductCost*SD.SalesQuantity) as SaleProfit,&#xA;DR.ResellerName,&#xA;DR.Email&#xA;&#xA;from dbo.dimProduct DP&#xA;inner join dbo.StageSalesDetail SD&#xA;on DP.dimProductKey = SD.ProductID&#xA;inner join dbo.StageSalesHeader SH&#xA;on SH.SalesHeaderID = SD.SalesHeaderID&#xA;left join dbo.dimStore_new DS&#xA;on DS.StoreID= SH.StoreID&#xA;left join dbo.dimReseller_new DR&#xA;on DR.dimResellerM = SH.ResellerID &#xA;left join dbo.dimChannel DC&#xA;on DC.ChannelID = SH.ChannelID&#xA;left join dbo.DimDate DD&#xA;on DD.FullDate = SH.[Date];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\EnterRandom to FactSalesTarget"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{5BC21179-D0C4-4146-ACF3-D041112B0B9A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="EnterRandom to FactSalesTarget"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016 CTP3.2; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9DBC86AC-DD29-495C-AD90-D743F3197AD5}"
+          SQLTask:SqlStatementSource="&#xA;INSERT INTO FactSalesTarget&#xA;             (dimStoreKey, dimResellerKey, SalesTargetAmount, dimTargetDateKey)&#xA;SELECT ISNULL(S.dimStoreKey, - 1) AS Expr1, ISNULL(R.dimResellerKey, - 1) AS Expr2, T.TargetAmount, D.DimDateID&#xA;FROM   StageTarget AS T LEFT OUTER JOIN&#xA;   dimStore_new AS S ON T.Target = S.StoreNumber LEFT OUTER JOIN&#xA;    dimReseller_new AS R ON T.Target = R.ResellerName LEFT OUTER JOIN&#xA;   dimDate AS D ON T.[Year] = D.CalendarYear     &#xA;             &#xA;WHERE (D.DayNumberOfMonth = 1) " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Remove FK - FactSalesActual"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{11d11e7c-4629-4231-b677-5cef44ea12c4}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Remove FK - FactSalesActual"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016 CTP3.2; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9DBC86AC-DD29-495C-AD90-D743F3197AD5}"
+          SQLTask:SqlStatementSource="ALTER TABLE dbo.FactSalesActual DROP CONSTRAINT FK_FactSalesActual_dimProduct; ALTER TABLE dbo.FactSalesActual DROP CONSTRAINT FK_FactSalesActual_dimStore; ALTER TABLE dbo.FactSalesActual DROP CONSTRAINT FK_FactSalesActual_dimReseller; " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Remove FK - FactSalesTarget"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{52bcb3f0-9af7-416d-8424-fe563a969701}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Remove FK - FactSalesTarget"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016 CTP3.2; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9DBC86AC-DD29-495C-AD90-D743F3197AD5}"
+          SQLTask:SqlStatementSource="ALTER TABLE dbo.FactSalesTarget DROP CONSTRAINT FK_FactSales_dimStore;&#xA;ALTER TABLE dbo.FactSalesTarget DROP CONSTRAINT FK_FactSales_dimReseller;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate FactSalesActual"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{92f99e7d-9e4f-4249-bce9-84aba6d20760}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate FactSalesActual"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016 CTP3.2; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9DBC86AC-DD29-495C-AD90-D743F3197AD5}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.FactSalesActual" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate FactSalesTarget"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{3c51e23e-6cbf-4811-9b43-7ef08ba03eac}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate FactSalesTarget"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016 CTP3.2; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9DBC86AC-DD29-495C-AD90-D743F3197AD5}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.FactSalesTarget" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{199537FA-1F64-4BB5-9C39-BEEA72E4B609}"
+      DTS:From="Package\Remove FK - FactSalesActual"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Truncate FactSalesActual" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{234737E9-8F9F-4AA8-887A-CF0DCCF19ED3}"
+      DTS:From="Package\Remove FK - FactSalesTarget"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Truncate FactSalesTarget" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{CA83AB61-3E3C-4A65-86C9-2F9B91F6A52B}"
+      DTS:From="Package\Truncate FactSalesActual"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Add FK to FactSalesActual" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{DD02081C-791C-468F-8CAE-15FE1C2940A3}"
+      DTS:From="Package\Truncate FactSalesTarget"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Add FK to FactSalesTarget" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{B1053AA6-6DC6-4897-A60A-EFB58DBC25D8}"
+      DTS:From="Package\Add FK to FactSalesActual"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Enter Random to FactSalesActual" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{7821CEB9-D38C-4792-B72F-559C88473BEF}"
+      DTS:From="Package\Add FK to FactSalesTarget"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\EnterRandom to FactSalesTarget" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="201.333333333334,42.6666666666667"
+          Id="Package\Add FK to FactSalesActual"
+          TopLeft="617.26192834654,105.047624205975" />
+        <NodeLayout
+          Size="204,42.6666666666667"
+          Id="Package\Add FK to FactSalesTarget"
+          TopLeft="574.583325665444,211.321433787899" />
+        <NodeLayout
+          Size="236,42.6666666666667"
+          Id="Package\Enter Random to FactSalesActual"
+          TopLeft="844.79165407829,99.6666648844878" />
+        <NodeLayout
+          Size="234.666666666667,42.6666666666667"
+          Id="Package\EnterRandom to FactSalesTarget"
+          TopLeft="839.499991046886,212.599997009039" />
+        <NodeLayout
+          Size="216,42.6666666666667"
+          Id="Package\Remove FK - FactSalesActual"
+          TopLeft="60,101.190476135129" />
+        <NodeLayout
+          Size="218.666666666667,42.6666666666667"
+          Id="Package\Remove FK - FactSalesTarget"
+          TopLeft="60,203.857142801796" />
+        <NodeLayout
+          Size="197.333333333334,42.6666666666667"
+          Id="Package\Truncate FactSalesActual"
+          TopLeft="321.904758002077,107.761905791362" />
+        <NodeLayout
+          Size="200,42.6666666666667"
+          Id="Package\Truncate FactSalesTarget"
+          TopLeft="338.571424420391,220.2380984593" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="276,125.809524296579">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="45.904758002077,0"
+              Start="0,0"
+              End="38.404758002077,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="38.404758002077,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="278.666666666667,225.190476135129">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="59.9047577537242,16.3809556575048"
+              Start="0,0"
+              End="52.4047577537242,16.3809556575048">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="25.9523788768621,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="25.9523788768621,0"
+                    Point2="29.9523788768621,0"
+                    Point3="29.9523788768621,4" />
+                  <mssgle:LineSegment
+                    End="29.9523788768621,12.3809556575048" />
+                  <mssgle:CubicBezierSegment
+                    Point1="29.9523788768621,12.3809556575048"
+                    Point2="29.9523788768621,16.3809556575048"
+                    Point3="33.9523788768621,16.3809556575048" />
+                  <mssgle:LineSegment
+                    End="52.4047577537242,16.3809556575048" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="519.23809133541,127.738098332002">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="98.0238370111298,0"
+              Start="0,0"
+              End="90.5238370111298,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="90.5238370111298,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="538.571424420391,241.571431792634">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="36.0119012450533,-8.91666467140126"
+              Start="0,0"
+              End="28.5119012450533,-8.91666467140126">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="14.0059506225267,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="14.0059506225267,0"
+                    Point2="18.0059506225267,0"
+                    Point3="18.0059506225267,-4" />
+                  <mssgle:LineSegment
+                    End="18.0059506225267,-4.91666467140126" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.0059506225267,-4.91666467140126"
+                    Point2="18.0059506225267,-8.91666467140126"
+                    Point3="22.0059506225267,-8.91666467140126" />
+                  <mssgle:LineSegment
+                    End="28.5119012450533,-8.91666467140126" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="818.595261679873,123.690477878565">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="26.1963923984166,0"
+              Start="0,0"
+              End="18.6963923984166,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="18.6963923984166,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="778.583325665444,233.294048731802">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="60.9166653814417,0"
+              Start="0,0"
+              End="53.4166653814417,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="53.4166653814417,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
